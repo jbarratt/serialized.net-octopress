@@ -10,9 +10,9 @@ The thing is, I used to always launch my todo list from a terminal, then keep th
 
 So sticking this in my `.vimrc`:
 
-{% highlight vim %}
+{% codeblock lang:vim %}
 map <F8> :!cvs commit -m ""<CR><CR>
-{% endhighlight %}
+{% endcodeblock %}
 
 
 means by hitting F8 (arbitrary choice) I can commit the current document. Nice. If it gets to it I could add in the other features, like update, but for now I digs it.

@@ -75,14 +75,14 @@ One of the nice things about shipwright is that it allows you to tune up a build
 Even though the Dancer packages now contain all your files, they still don't know where to get installed. 
 
 Normally the `scripts/MyApp/build` contents look like this:
-{% highlight basemake %}
+{% codeblock lang:basemake %}
 install: %%MAKE%% install
-{% endhighlight %}
+{% endcodeblock %}
 
 If we add a simple extra step, that gives us a copy of all the module's assets rooted off our package's '/www' path.
-{% highlight basemake %}
+{% codeblock lang:basemake %}
 install: %%MAKE%% install ; cp -av . %%INSTALL_BASE%%/www
-{% endhighlight %}
+{% endcodeblock %}
 
 # Walkthrough
 
@@ -92,23 +92,23 @@ First, you'll need to install Shipwright. I am in love with the mighty combinati
 
 Once you've fixed the MANIFEST file as described above, you need to build a distribution of your Dancer app.
 
-{% highlight console %}
+{% codeblock lang:console %}
 $ cd ../MyApp
 $ perl Makefile.PL
 $ make dist
-{% endhighlight %}
+{% endcodeblock %}
 
 ## Prepare the 'vessel'
 
 I'm going to be doing all the work in a directory called `~/home/work/shipwright`.
 I'm also using the `git` shipwright backend here -- it works with svn, plain filesystem, and other options as well.
 
-{% highlight console %}
+{% codeblock lang:console %}
 # you might need to mkdir -p "$HOME/work/shipwright/" first.
 $ export APPNAME="MyApp"
 $ export SHIPWRIGHT_SHIPYARD="git:file:///$HOME/work/shipwright/$APPNAME-vessel.git"
 $ shipwright create
-{% endhighlight %}
+{% endcodeblock %}
 
 Ok, now you've got the vessel. It's time to load it full of CPAN'y goodness.
 Since this is a tutorial for Dancer, I'll include some of the basics I like to have when deploying Dancer apps.
@@ -117,7 +117,7 @@ Since this is a tutorial for Dancer, I'll include some of the basics I like to h
 
 I'm using `--no-follow` here because I had some errors trying to follow dependencies on my internal applications that I also install via distribution file. If you're only loading CPAN modules from your Dancer app, you can take this off.
 
-{% highlight console %}
+{% codeblock lang:console %}
 $ shipwright import cpan:Template cpan:Dancer cpan:YAML::XS cpan:Task::Plack
 # put the full path, and right version number of, the file here
 $ shipwright import file:~/work/$APPNAME/$APPNAME-0.004.tar.gz --no-follow
@@ -133,15 +133,15 @@ $ vi scripts/$APPNAME/build
 $ git add scripts/$APPNAME/build
 $ git commit -m "tweaked build script for $APPNAME"
 $ git push origin master
-{% endhighlight %}
+{% endcodeblock %}
 
 ## Build the vessel
 
 Cool. Now we've got a self-contained, versioned repository. Time to build it.
 
-{% highlight console %}
+{% codeblock lang:console %}
 $ ./bin/shipwright-builder --install-base ~/work/shipwright/$APPNAME --force
-{% endhighlight %}
+{% endcodeblock %}
 
 The `--force` is because some modules don't pass tests. Shipwright does have a ways to go with dependency management (or I'm doing something wrong) -- if I've install a module into the 'vessel', sometimes other modules that depend on it can't use it at build/test time.
 
@@ -151,27 +151,27 @@ Now you've got a directory (`~/work/shipwright/$APPNAME`) which can be deployed 
 
 When you build a new version of your Dancer app, all you have to do is update the vessel, then build.
 
-{% highlight console %}
+{% codeblock lang:console %}
 $ shipwright relocate $APPNAME file:~/....new.tar.gz
 $ shipwright update $APPNAME
 $ cd $APPNAME-vessel
 $ git pull
 $ rm -rf ~/work/shipwright/$APPNAME && ./bin/shipwright-builder --install-base ~/work/shipwright/$APPNAME --force
-{% endhighlight %}
+{% endcodeblock %}
 
 ## Using the Vessel
 
 Shipwright has some nice features to set up all the environment variables needed so you can use your app. All you have to do is source the appropriate script, like so:
 
-{% highlight console %}
+{% codeblock lang:console %}
 # set up your environment so the '$APPNAME' libraries and binaries are in your path
 $ . /opt/yourstuff/$APPNAME/tools/shipwright-source-bash /opt/yourstuff/$APPNAME/
-{% endhighlight %}
+{% endcodeblock %}
 
 What's cool is you can do the same thing from SYSV-style `init` scripts. Let's say you're launching this as a `fastcgi` application.
 Your startup script can look like this example. The magic line is `source $APP_BASE...` which uses the shipwright shell config to set the variables used by the rest of the script.
 
-{% highlight sh %}
+{% codeblock lang:sh %}
 #!/bin/bash
 
 NAME=$APPNAME
@@ -275,7 +275,7 @@ case "$1" in
 esac
 
 exit 0
-{% endhighlight %}
+{% endcodeblock %}
 
 ## Conclusion
 

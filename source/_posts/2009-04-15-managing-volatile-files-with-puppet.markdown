@@ -15,19 +15,19 @@ Ok, not the normal kind of thing you do with Puppet, but it can be done. We just
 Thankfully Puppet lets us define custom facts, so here we go...
 in the module's plugins/facter directory, I created `epoch_time.rb`.
 
-{% highlight ruby %}
+{% codeblock lang:ruby %}
     Facter.add("epoch_time") do
             setcode do
                     Time.now.to_i
             end
     end
-{% endhighlight %}
+{% endcodeblock %}
 
 Then I could use that in `templates/heartbeat/cib.xml`:
 
-{% highlight xml %}
+{% codeblock lang:xml %}
  <cib admin_epoch="<%= epoch_time %>">
-{% endhighlight %}
+{% endcodeblock %}
 
 Well, that works fine, except for one little issue.
 
@@ -41,7 +41,7 @@ So since puppet runs about every 30 minutes, that's not good. I don't want to be
 
 This is what we get:
 
-{% highlight text %}
+{% codeblock lang:text %}
     debug: File[/etc/ha.d/ha.cf]/checksum: Initializing checksum hash
     debug: File[/etc/ha.d/ha.cf]: Creating checksum {md5}18530322762561ce59f1d414340b4c43
     debug: File[/etc/ha.d/cib.xml]/checksum: Initializing checksum hash
@@ -54,7 +54,7 @@ This is what we get:
     debug: File[/etc/ha.d/cib.xml]: Changing content
     debug: File[/etc/ha.d/cib.xml]: 1 change(s)
     </cib>
-{% endhighlight %}
+{% endcodeblock %}
 
 
 So here was my solution, and as inelegant as it is, it pretty much works.
@@ -65,7 +65,7 @@ So here was my solution, and as inelegant as it is, it pretty much works.
 1. Run the command to reload the CIB database in that and only that case.
 
 So the puppet code to make this happen:
-{% highlight text %}
+{% codeblock lang:text %}
         exec { "add-epoch-cib-xml":
                 command => "sed 's/admin_epoch=\"0\"/admin_epoch=\"${epoch_time}\"/' /etc/ha.d/cib.xml-puppet > /etc/ha.d/cib.xml && cibadmin -R -x /etc/ha.d/cib.xml",
                 path => ["/bin", "/usr/sbin/"],
@@ -77,7 +77,7 @@ So the puppet code to make this happen:
                 ensure => 'present',
                 content => template("ha_nfsroot/heartbeat/cib.xml");
         }
-{% endhighlight %}
+{% endcodeblock %}
 
 So I still get to use my very first custom fact (it gets interpolated into the 'sed' command) but I also don't run that terrifying update every time.
 

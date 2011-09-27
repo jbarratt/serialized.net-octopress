@@ -64,7 +64,7 @@ Also, to install the CF card into the Wind, I had to remove the motherboard -- t
 
 After that it was a simple matter of setting up the zpool with my new drives, and exporting the filesystem to my other devices.
 
-{% highlight console %}
+{% codeblock lang:console %}
 
     # Use the format tool to find the disk ID's in the system
     jbarratt@rothko:/$ pfexec format
@@ -87,7 +87,7 @@ After that it was a simple matter of setting up the zpool with my new drives, an
     # Share that over NFS
     # zfs set sharenfs=rw apool/archive
     </st315003></default>
-{% endhighlight %}
+{% endcodeblock %}
 
 And now the contents are flying over my network and filling it up. I'm excited to do a few more things soonish:
 <ul>
