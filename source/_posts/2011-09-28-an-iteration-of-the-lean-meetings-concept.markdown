@@ -94,7 +94,10 @@ an all-day monthly meeting one of our teams have. We created a special
 designation (color of sticky works, as pictured above, or a separate section in the backlog)
 for items that are "_Today Or They Die_" -- things which will happen
 between now and the next meeting, regardless of if we discuss them or
-not. This can help with voting; they may still not end up getting
+not. If it's December 1, and your next Meeting is Jan 1, you should
+probably make your Christmas plans.
+
+This can help with voting; those items may still not end up getting
 selected for discussion, but at least the team has a shared
 understanding that we're letting the opportunity pass.
 
