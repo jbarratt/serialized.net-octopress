@@ -48,3 +48,8 @@ When you have a message selected
 * __f__ => forward
 
 Boom. Tasty efficiency.
+
+__Update__: [@naydichev](https://twitter.com/naydichev) reminds me of
+the most important shortcut of all:
+
+* __?__ => help (show all commands.)
