@@ -8,6 +8,7 @@ ssh_user       = "serialized.net@serialized.net"
 ssh_port       = "22"
 document_root  = "~/domains/serialized.net/html/"
 deploy_default = "rsync"
+rsync_delete = "false"
 
 # This will be configured for you when you run config_deploy
 deploy_branch  = "gh-pages"

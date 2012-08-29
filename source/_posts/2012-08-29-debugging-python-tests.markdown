@@ -21,7 +21,14 @@ you can just run
 $ nosetests --pdb
 ```
 
-and that gets you a debugger right aimed at your failing tests.
+or
+
+```
+$ nosetests --pdb-failures
+```
+
+and that gets you a debugger right aimed at your failing tests. (Not sure why
+you sometimes need one vs the other.)
 
 If your test isn't failing, or you want to trap things higher up the stack than what actually ends up making the test fail, you can also do it manually.
 Just run python with `-m pdb` to run the debugger, and set the breakpoint:
