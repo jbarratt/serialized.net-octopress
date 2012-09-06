@@ -8,27 +8,15 @@ categories:
 
 ### The plugin
 
-I [recently wrote](/2012/09/migrating-from-trello-to-taskwarrior/) about using
-Taskwarrior for tracking my tasks. One of the things I'd really liked about
-Omnifocus was the [quick entry](http://www.omnigroup.com/blog/entry/omnifocus-at-school-quick-entry#!prettyPhoto), which allowed (with a hotkey) for capturing tasks -- even setting projects, contexts, priorities, due dates, etc.
+I [recently wrote](/2012/09/migrating-from-trello-to-taskwarrior/) about using Taskwarrior for tracking my tasks. One of the things I'd really liked about Omnifocus was the [quick entry](http://www.omnigroup.com/blog/entry/omnifocus-at-school-quick-entry#!prettyPhoto), which allowed (with a hotkey) for capturing tasks -- even setting projects, contexts, priorities, due dates, etc.
 
-Even though I love working with Taskwarrior on the command line, I'm not always
-at the command line -- and in fact the majority of my tasks are generated when
-I'm out of that wonderfully productive space. (Main culprits of course being
-email and Skype.) Especially when pixel constrained, it's not actually that
-awesome to juggle a Gmail window and a Terminal window.
+Even though I love working with Taskwarrior on the command line, I'm not always at the command line -- and in fact the majority of my tasks are generated when I'm out of that wonderfully productive space. (Main culprits of course being email and Skype.) Especially when pixel constrained, it's not actually that awesome to juggle a Gmail window and a Terminal window.
 
-I use [Alfred](http://alfredapp.com) to get me quick access to application
-launching, web searching, and awesomely [controlling Spotify](https://github.com/phpfunk/alfred-spotify-controls), so I (using
-Alfred) Googled for Alfred Taskwarrior integration. Oh hey, look, some [guy on
-hacker news](http://news.ycombinator.com/item?id=3437971) made it work, but
-didn't share the plugin, so I had to figure it out on my own.
+I use [Alfred](http://alfredapp.com) to get me quick access to application launching, web searching, and awesomely [controlling Spotify](https://github.com/phpfunk/alfred-spotify-controls), so I (using Alfred) Googled for Alfred Taskwarrior integration. Oh hey, look, some [guy on hacker news](http://news.ycombinator.com/item?id=3437971) made it work, but didn't share the plugin, so I had to figure it out on my own.
 
 So, I [made a plugin](https://github.com/jbarratt/AlfredTaskwarrior).
 
-Installing is very simple, just download and run. The plugin is also very
-simple, you just launch Alfred and it passes everything after `task` to the task
-command, spitting the results (with ANSI color codes filtered out) back to you.
+Installing is very simple, just download and run. The plugin is also very simple, you just launch Alfred and it passes everything after `task` to the task command, spitting the results (with ANSI color codes filtered out) back to you.
 
 ```
 # launch Alfred
@@ -104,15 +92,16 @@ easy as:
 ```
 $ vi extension/info.plist # make some change to the script
 $ make versionbump
-perl -pi -e 's/(version>\s*\d+\.)(\d+)/$1 . ($2 + 1)/e' extension/*.xml
-make all
-zip Taskwarrior.alfredextension -j -r extension
-updating: icon.png (stored 0%)
-updating: info.plist (deflated 54%)
-updating: kudos.plist (deflated 30%)
-updating: taskwarrior-version.xml (deflated 23%)
-updating: update.xml (deflated 23%)
-~/work/AlfredTaskwarrior ± git status
+    perl -pi -e 's/(version>\s*\d+\.)(\d+)/$1 . ($2 + 1)/e' extension/*.xml
+    make all
+    zip Taskwarrior.alfredextension -j -r extension
+    updating: icon.png (stored 0%)
+    updating: info.plist (deflated 54%)
+    updating: kudos.plist (deflated 30%)
+    updating: taskwarrior-version.xml (deflated 23%)
+    updating: update.xml (deflated 23%)
+
+$ git status
 #       modified:   Taskwarrior.alfredextension
 #       modified:   extension/info.plist
 #       modified:   extension/taskwarrior-version.xml
