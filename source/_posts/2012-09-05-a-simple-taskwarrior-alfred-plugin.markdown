@@ -98,7 +98,7 @@ version number (which needs to be kept in sync between the `-version.xml` and `u
 That evil perl one liner just says to match a string like `version>1.2` and
 replace it with one like `version>1.3`.
 
-Shipping a tweak to the package to all my (no doubt millions of) users is as
+Shipping a tweak to the package to all my (**cough** no doubt millions of) users is as
 easy as:
 
 ```
